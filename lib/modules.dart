@@ -109,26 +109,8 @@ class IAPItem {
 
   /// Return the contents of this class as a string
   @override
-  String toString() {
-    return 'productId: $productId, '
-        'price: $price, '
-        'currency: $currency, '
-        'localizedPrice: $localizedPrice, '
-        'title: $title, '
-        'description: $description, '
-        'introductoryPrice: $introductoryPrice, '
-        'introductoryPricePaymentModeIOS: $introductoryPrice, '
-        'subscriptionPeriodNumberIOS: $subscriptionPeriodNumberIOS, '
-        'subscriptionPeriodUnitIOS: $subscriptionPeriodUnitIOS, '
-        'introductoryPricePaymentModeIOS: $introductoryPricePaymentModeIOS, '
-        'introductoryPriceNumberOfPeriodsIOS: $introductoryPriceNumberOfPeriodsIOS, '
-        'introductoryPriceSubscriptionPeriodIOS: $introductoryPriceSubscriptionPeriodIOS, '
-        'subscriptionPeriodAndroid: $subscriptionPeriodAndroid, '
-        'iconUrl: $iconUrl, '
-        'originalJson: $originalJson, '
-        'originalPrice: $originalPrice, '
-        'discounts: $discountsIOS, ';
-  }
+  String toString() =>
+      'IAPItem{productId: $productId, price: $price, currency: $currency, localizedPrice: $localizedPrice, title: $title, description: $description, introductoryPrice: $introductoryPrice, subscriptionPeriodNumberIOS: $subscriptionPeriodNumberIOS, subscriptionPeriodUnitIOS: $subscriptionPeriodUnitIOS, introductoryPriceNumberIOS: $introductoryPriceNumberIOS, introductoryPricePaymentModeIOS: $introductoryPricePaymentModeIOS, introductoryPriceNumberOfPeriodsIOS: $introductoryPriceNumberOfPeriodsIOS, introductoryPriceSubscriptionPeriodIOS: $introductoryPriceSubscriptionPeriodIOS, discountsIOS: $discountsIOS, signatureAndroid: $signatureAndroid, subscriptionOffersAndroid: $subscriptionOffersAndroid, subscriptionPeriodAndroid: $subscriptionPeriodAndroid, iconUrl: $iconUrl, originalJson: $originalJson, originalPrice: $originalPrice}';
 
   static List<DiscountIOS>? _extractDiscountIOS(dynamic json) {
     List? list = json as List?;
@@ -191,6 +173,10 @@ class SubscriptionOfferAndroid {
 
     return phases;
   }
+
+  @override
+  String toString() =>
+      'SubscriptionOfferAndroid{offerId: $offerId, basePlanId: $basePlanId, offerToken: $offerToken, pricingPhases: $pricingPhases}';
 }
 
 class PricingPhaseAndroid {
@@ -208,6 +194,10 @@ class PricingPhaseAndroid {
         currencyCode = json["currencyCode"] as String?,
         recurrenceMode = json["recurrenceMode"] as int?,
         billingCycleCount = json["billingCycleCount"] as int?;
+
+  @override
+  String toString() =>
+      'PricingPhaseAndroid{price: $price, formattedPrice: $formattedPrice, billingPeriod: $billingPeriod, currencyCode: $currencyCode, recurrenceMode: $recurrenceMode, billingCycleCount: $billingCycleCount}';
 }
 
 class DiscountIOS {
@@ -418,9 +408,7 @@ TransactionState? _decodeTransactionStateIOS(int? rawValue) {
 /// See also https://developer.android.com/reference/com/android/billingclient/api/Purchase.PurchaseState
 enum PurchaseState {
   pending,
-
   purchased,
-
   unspecified,
 }
 
