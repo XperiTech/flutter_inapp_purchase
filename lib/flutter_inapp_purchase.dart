@@ -274,7 +274,7 @@ class FlutterInappPurchase {
       {String? obfuscatedAccountId,
       String? purchaseTokenAndroid,
       String? obfuscatedProfileIdAndroid,
-      int? offerTokenIndex}) async {
+      String? offerToken}) async {
     if (_platform.isAndroid) {
       return await _channel.invokeMethod('buyItemByType', <String, dynamic>{
         'type': describeEnum(_TypeInApp.inapp),
@@ -283,7 +283,7 @@ class FlutterInappPurchase {
         'obfuscatedAccountId': obfuscatedAccountId,
         'obfuscatedProfileId': obfuscatedProfileIdAndroid,
         'purchaseToken': purchaseTokenAndroid,
-        'offerTokenIndex': offerTokenIndex
+        'offerToken': offerToken
       });
     } else if (_platform.isIOS) {
       return await _channel.invokeMethod('buyProduct', <String, dynamic>{
@@ -303,14 +303,14 @@ class FlutterInappPurchase {
   /// Check [AndroidProrationMode] for valid proration values
   /// Identical to [requestPurchase] on `iOS`.
   /// [purchaseTokenAndroid] is used when upgrading subscriptions and sets the old purchase token
-  /// [offerTokenIndex] is now required for billing 5.0, if upgraded from billing 4.0 this will default to 0
+  /// [offerToken] is now required for billing 5.0
   Future requestSubscription(
     String productId, {
     int? prorationModeAndroid,
     String? obfuscatedAccountIdAndroid,
     String? obfuscatedProfileIdAndroid,
     String? purchaseTokenAndroid,
-    int? offerTokenIndex,
+    String? offerToken,
   }) async {
     if (_platform.isAndroid) {
       return await _channel.invokeMethod('buyItemByType', <String, dynamic>{
@@ -320,7 +320,7 @@ class FlutterInappPurchase {
         'obfuscatedAccountId': obfuscatedAccountIdAndroid,
         'obfuscatedProfileId': obfuscatedProfileIdAndroid,
         'purchaseToken': purchaseTokenAndroid,
-        'offerTokenIndex': offerTokenIndex,
+        'offerToken': offerToken,
       });
     } else if (_platform.isIOS) {
       return await _channel.invokeMethod('buyProduct', <String, dynamic>{

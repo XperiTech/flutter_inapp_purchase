@@ -489,7 +489,6 @@ class AndroidInappPurchasePlugin internal constructor() : MethodCallHandler,
             val productId = call.argument<String>("productId")
             val prorationMode = call.argument<Int>("prorationMode")!!
             val purchaseToken = call.argument<String>("purchaseToken")
-            val offerTokenIndex = call.argument<Int>("offerTokenIndex")
             val builder = newBuilder()
             var selectedProductDetails: ProductDetails? = null
             for (productDetails in productDetailsList) {
@@ -498,21 +497,13 @@ class AndroidInappPurchasePlugin internal constructor() : MethodCallHandler,
                     break
                 }
             }
+            val offerToken = call.argument<String?>("offerToken") ?: selectedProductDetails!!.subscriptionOfferDetails!![0].offerToken
+
             if (selectedProductDetails == null) {
                 val debugMessage =
                     "The selected product was not found. Please fetch setObfuscatedAccountIdproducts first by calling getItems"
                 safeChannel.error(TAG, "buyItemByType", debugMessage)
                 return
-            }
-
-            // Get the selected offerToken from the product, or first one if this is a migrated from 4.0 product
-            // or if the offerTokenIndex was not provided
-            var offerToken : String? = null
-            if (offerTokenIndex != null) {
-                offerToken = selectedProductDetails.subscriptionOfferDetails?.get(offerTokenIndex)?.offerToken
-            }
-            if (offerToken == null) {
-                offerToken = selectedProductDetails.subscriptionOfferDetails!![0].offerToken
             }
 
             val productDetailsParamsList =
