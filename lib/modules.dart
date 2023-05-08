@@ -98,6 +98,8 @@ class IAPItem {
     data['introductoryPriceSubscriptionPeriodIOS'] =
         this.introductoryPriceSubscriptionPeriodIOS;
     data['subscriptionPeriodAndroid'] = this.subscriptionPeriodAndroid;
+    data['subscriptionOffersAndroid'] =
+        this.subscriptionOffersAndroid?.map((e) => e.toJson()).toList();
     data['signatureAndroid'] = this.signatureAndroid;
 
     data['iconUrl'] = this.iconUrl;
@@ -176,6 +178,15 @@ class SubscriptionOfferAndroid {
         offerToken = json["offerToken"] as String?,
         pricingPhases = _extractAndroidPricingPhase(json["pricingPhases"]);
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['offerId'] = this.offerId;
+    data['basePlanId'] = this.basePlanId;
+    data['offerToken'] = this.offerToken;
+    data['pricingPhases'] = this.pricingPhases?.map((e) => e.toJson()).toList();
+    return data;
+  }
+
   static List<PricingPhaseAndroid>? _extractAndroidPricingPhase(dynamic json) {
     List? list = json as List?;
     List<PricingPhaseAndroid>? phases;
@@ -208,6 +219,17 @@ class PricingPhaseAndroid {
         currencyCode = json["currencyCode"] as String?,
         recurrenceMode = json["recurrenceMode"] as int?,
         billingCycleCount = json["billingCycleCount"] as int?;
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['price'] = this.price;
+    data['formattedPrice'] = this.formattedPrice;
+    data['billingPeriod'] = this.billingPeriod;
+    data['currencyCode'] = this.currencyCode;
+    data['recurrenceMode'] = this.recurrenceMode;
+    data['billingCycleCount'] = this.billingCycleCount;
+    return data;
+  }
 }
 
 class DiscountIOS {
@@ -418,9 +440,7 @@ TransactionState? _decodeTransactionStateIOS(int? rawValue) {
 /// See also https://developer.android.com/reference/com/android/billingclient/api/Purchase.PurchaseState
 enum PurchaseState {
   pending,
-
   purchased,
-
   unspecified,
 }
 

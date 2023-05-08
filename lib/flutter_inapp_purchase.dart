@@ -41,6 +41,7 @@ class FlutterInappPurchase {
       _purchasePromotedController!.stream;
 
   static StreamController<int?>? _onInAppMessageController;
+
   static Stream<int?> get inAppMessageAndroid =>
       _onInAppMessageController!.stream;
 
@@ -562,10 +563,9 @@ class FlutterInappPurchase {
 
       return false;
     } else if (_platform.isAndroid) {
-      var purchases =
-          await (getAvailablePurchases() as FutureOr<List<PurchasedItem>>);
+      final purchases = await (getAvailablePurchases()) ?? [];
 
-      for (var purchase in purchases) {
+      for (final purchase in purchases) {
         if (purchase.productId == sku) return true;
       }
 
